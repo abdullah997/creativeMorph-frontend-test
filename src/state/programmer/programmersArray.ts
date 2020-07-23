@@ -36,9 +36,14 @@ export const getProgrammersList = () => {
 };
 
 export const filterProgrammerArray = (name: string) => {
-  const filteredProgrammerArray: Programmer[] = programmers.filter(
-    (element: Programmer) => element.name === name,
-  );
+  // remove the refference which is pointing to same array inthe memory
+  const filteredProgrammerArray = programmers.map(
+    (element: Programmer) => {if(element.name === name){
+      element = {...element, name: name}
+      return element
+    }},
+  ).filter(element=>!!element);
+  console.log(filterProgrammerArray)
   return filteredProgrammerArray;
 };
 
